@@ -6,13 +6,14 @@
       <section id="content" role="main">
         <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
           <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-            <div>
+            <div class="post-content">
               <header>
               <?php if ( is_singular() ) { echo '<h1 class="entry-title">'; } else { echo '<h2 class="entry-title">'; } ?><span><?php the_title(); ?></span><?php if ( is_singular() ) { echo '</h1>'; } else { echo '</h2>'; } ?>
               </header>
               <?php get_template_part( 'entry', ( is_home() || is_archive() || is_search() ? 'summary' : 'content' ) ); ?>
             </div>
           </article>
+          <?php if ( ! post_password_required() ) comments_template( '', true ); ?>
         <?php endwhile; endif; ?>
       </section>
     </div>
