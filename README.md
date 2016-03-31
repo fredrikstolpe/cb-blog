@@ -8,3 +8,4 @@ Wordpress blog
 * jQuery 1.11.1 https://jquery.com/
 * Prism syntax highlighter http://prismjs.com
 * Magnific Popup - v1.1.0 http://dimsemenov.com/plugins/magnific-popup/
+* Disqus
