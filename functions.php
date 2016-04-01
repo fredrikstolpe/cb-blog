@@ -64,7 +64,6 @@ function cb_blog_load_scripts()
   wp_enqueue_script( 'jquery-1.11.1', get_template_directory_uri() . '/js/jquery.min.js', array(), null, true );
   wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css' );
   wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array(), null, true );
-  wp_enqueue_style( 'cb-blog', get_template_directory_uri() . '/css/cb-blog.css' );
   wp_enqueue_script( 'cb-blog', get_template_directory_uri() . '/js/cb-blog.js', array(), null, true );
   wp_enqueue_style( 'dosis', 'https://fonts.googleapis.com/css?family=Dosis:500,400' );
   wp_enqueue_style( 'open-sans', 'https://fonts.googleapis.com/css?family=Open+Sans:400,300italic' );
