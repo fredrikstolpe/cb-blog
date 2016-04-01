@@ -46,7 +46,8 @@ p {
 }
 
 .wp-post-image,
-.size-article-image {
+.size-article-image ,
+.size-large {
   width: 100%;
   height: auto;
 }
