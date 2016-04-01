@@ -59,6 +59,29 @@ p {
   margin-bottom: 50px;
 }
 
+.post-date {
+  color:#aaaaaa;
+  margin-bottom:25px;
+}
+
+.post-date .tags{
+  margin-top:4px;
+}
+
+.tags .tag {
+  font-size:14px;
+  background-color: #f2f2f2;
+  margin-right: 5px;
+  padding:2px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.tag a {
+  color:#888888;
+  text-decoration: none !important;
+}
+
 /*
  *
  * NAVBAR
@@ -138,9 +161,12 @@ h1 {
   font-size: 32px;
   font-weight: 500;
   margin-top: 20px;
-	margin-bottom: 15px;
   text-transform: uppercase;
 	margin-bottom:15px;
+}
+
+.single h1 {
+  margin-bottom:3px;
 }
 
 .archive h1 {
