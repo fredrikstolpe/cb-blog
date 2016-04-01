@@ -6,7 +6,7 @@
     the_post_thumbnail();
   }
   else{
-      echo('<img src="' . get_template_directory_uri() . '/img/stripes.png" class="wp-post-image" width="293" height="172" />');
+      echo('<img alt="" src="' . get_template_directory_uri() . '/img/stripes.png" class="wp-post-image" width="293" height="172" />');
   }
   ?>
   <header>
