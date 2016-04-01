@@ -2,7 +2,6 @@
 add_action( 'after_setup_theme', 'cb_blog_setup' );
 function cb_blog_setup()
 {
-  show_admin_bar(false);
   load_theme_textdomain( 'cb_blog', get_template_directory() . '/languages' );
   add_theme_support( 'title-tag' );
   add_theme_support( 'automatic-feed-links' );
@@ -13,8 +12,26 @@ function cb_blog_setup()
   global $content_width;
   if ( ! isset( $content_width ) ) $content_width = 1117;
   register_nav_menus(
-  array( 'main-menu' => __( 'Main Menu', 'cb_blog' ) )
+    array( 'main-menu' => __( 'Main Menu', 'cb_blog' ) )
   );
+  disableUglyWPStuff();
+}
+
+function disableUglyWPStuff(){
+  show_admin_bar(false);
+  remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+  remove_action( 'wp_print_styles', 'print_emoji_styles' );
+  remove_action( 'wp_head', 'feed_links_extra', 3 ); // Display the links to the extra feeds such as category feeds
+  remove_action( 'wp_head', 'feed_links', 2 ); // Display the links to the general feeds: Post and Comment Feed
+  remove_action( 'wp_head', 'rsd_link' ); // Display the link to the Really Simple Discovery service endpoint, EditURI link
+  remove_action( 'wp_head', 'wlwmanifest_link' ); // Display the link to the Windows Live Writer manifest file.
+  remove_action( 'wp_head', 'index_rel_link' ); // index link
+  remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 ); // prev link
+  remove_action( 'wp_head', 'start_post_rel_link', 10, 0 ); // start link
+  remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 ); // Display relational links for the posts adjacent to the current post.
+  remove_action( 'wp_head', 'wp_generator' ); // Display the XHTML generator that is generated on the wp_head hook, WP version
+  remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+  remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
 }
 
 add_filter('nav_menu_css_class','special_nav_class', 10, 2);
@@ -60,58 +77,52 @@ function cb_blog_load_scripts()
 add_action( 'comment_form_before', 'cb_blog_enqueue_comment_reply_script' );
 function cb_blog_enqueue_comment_reply_script()
 {
-if ( get_option( 'thread_comments' ) ) { wp_enqueue_script( 'comment-reply' ); }
+  if ( get_option( 'thread_comments' ) ) { wp_enqueue_script( 'comment-reply' ); }
 }
+
 add_filter( 'the_title', 'cb_blog_title' );
 function cb_blog_title( $title ) {
-if ( $title == '' ) {
-return '&rarr;';
-} else {
-return $title;
+  if ( $title == '' ) {
+    return '&rarr;';
+  } else {
+    return $title;
+  }
 }
-}
+
 add_filter( 'wp_title', 'cb_blog_filter_wp_title' );
 function cb_blog_filter_wp_title( $title )
 {
-return $title . esc_attr( get_bloginfo( 'name' ) );
+  return $title . esc_attr( get_bloginfo( 'name' ) );
 }
+
 add_action( 'widgets_init', 'cb_blog_widgets_init' );
 function cb_blog_widgets_init()
 {
-register_sidebar( array (
-'name' => __( 'Sidebar Widget Area', 'cb_blog' ),
-'id' => 'primary-widget-area',
-'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
-'after_widget' => "</li>",
-'before_title' => '<h3 class="widget-title">',
-'after_title' => '</h3>',
-) );
-/*
-register_sidebar( array (
-'name' => __( 'Sidebar Widget Area', 'cb_blog' ),
-'id' => 'primary-widget-area',
-'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
-'after_widget' => "</li>",
-'before_title' => '<h3 class="widget-title">',
-'after_title' => '</h3>',
-) );
-*/
+  register_sidebar( array (
+  'name' => __( 'Sidebar Widget Area', 'cb_blog' ),
+  'id' => 'primary-widget-area',
+  'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
+  'after_widget' => "</li>",
+  'before_title' => '<h3 class="widget-title">',
+  'after_title' => '</h3>',
+  ) );
 }
+
 function cb_blog_custom_pings( $comment )
 {
-$GLOBALS['comment'] = $comment;
-?>
-<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>"><?php echo comment_author_link(); ?></li>
-<?php
+  $GLOBALS['comment'] = $comment;
+  ?>
+  <li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>"><?php echo comment_author_link(); ?></li>
+  <?php
 }
 add_filter( 'get_comments_number', 'cb_blog_comments_number' );
 function cb_blog_comments_number( $count )
 {
-if ( !is_admin() ) {
-global $id;
-$comments_by_type = &separate_comments( get_comments( 'status=approve&post_id=' . $id ) );
-return count( $comments_by_type['comment'] );
-} else {
-return $count;
-}
+  if ( !is_admin() ) {
+  global $id;
+  $comments_by_type = &separate_comments( get_comments( 'status=approve&post_id=' . $id ) );
+  return count( $comments_by_type['comment'] );
+  } else {
+  return $count;
+  }
 }
