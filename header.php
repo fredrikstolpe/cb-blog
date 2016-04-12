@@ -5,6 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <?php wp_head(); ?>
+  <?php if ( has_post_thumbnail() ) { ?>
+    <meta property="og:image" content="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'post-thumbnail', false )[0] ?>"/>
+  <?php } ?>
   <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>" />
 </head>
 <body <?php body_class(); ?>>
