@@ -71,6 +71,12 @@ li {
   height: auto;
 }
 
+.post-content iframe{
+  width:620px;
+  height:349px;
+  width: 100%;
+}
+
 .row{
   margin-bottom:50px;
 }
